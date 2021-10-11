@@ -15,7 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                PYTHON_VERSION: ["3.6", "3.7", "3.8", "3.9"]
+                PYTHON_VERSION: ["3.6", "3.7", "3.8", "3.9", "3.10"]
         steps:
             - name: Checkout branch
               uses: actions/checkout@v2
@@ -46,8 +46,8 @@ jobs:
               shell: bash -l {0}
               run: bash -l .github/scripts/copy_winpty.sh
             - name: Build and publish wheels
-              env:
-                MATURIN_PASSWORD: ${{secrets.MATURIN_PASSWORD}}
-                MATURIN_USERNAME: ${{secrets.MATURIN_USERNAME}}
+#              env:
+#                MATURIN_PASSWORD: ${{secrets.MATURIN_PASSWORD}}
+#                MATURIN_USERNAME: ${{secrets.MATURIN_USERNAME}}
               shell: bash -l {0}
-              run: maturin publish -i $(which python) -u $MATURIN_USERNAME --no-sdist
+              run: maturin build -i $(which python) --no-sdist
